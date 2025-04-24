@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - My Shop{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
+
+{% if cart %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <table class="w-full">
+            <thead>
+                <tr class="border-b">
+                    <th class="text-left py-4">Product</th>
+                    <th class="text-right py-4">Price</th>
+                    <th class="text-right py-4">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr class="border-b">
+                    <td class="py-4">{{ item.name }}</td>
+                    <td class="text-right">${{ "%.2f"|format(item.price) }}</td>
+                    <td class="text-right">
+                        <a href="{{ url_for('remove_from_cart', index=loop.index0) }}" 
+                           class="text-red-500 hover:text-red-700">
+                            Remove
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr class="font-bold">
+                    <td class="py-4">Total</td>
+                    <td class="text-right">${{ "%.2f"|format(total) }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mt-6">
+            <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+{% else %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <p class="text-gray-600">Your cart is empty.</p>
+        <div class="mt-6">
+            <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                Start Shopping
+            </a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %} 

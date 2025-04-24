@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+flask_session/
+*.pyc
+.DS_Store 
