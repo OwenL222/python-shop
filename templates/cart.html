@@ -1,54 +1,79 @@
 {% extends "base.html" %}
 
-{% block title %}Shopping Cart - My Shop{% endblock %}
+{% block title %}Shopping Cart - Gourmet Shop{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Shopping Cart</h1>
 
-{% if cart %}
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <table class="w-full">
-            <thead>
-                <tr class="border-b">
-                    <th class="text-left py-4">Product</th>
-                    <th class="text-right py-4">Price</th>
-                    <th class="text-right py-4">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart %}
-                <tr class="border-b">
-                    <td class="py-4">{{ item.name }}</td>
-                    <td class="text-right">${{ "%.2f"|format(item.price) }}</td>
-                    <td class="text-right">
-                        <a href="{{ url_for('remove_from_cart', index=loop.index0) }}" 
-                           class="text-red-500 hover:text-red-700">
-                            Remove
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-                <tr class="font-bold">
-                    <td class="py-4">Total</td>
-                    <td class="text-right">${{ "%.2f"|format(total) }}</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="mt-6">
-            <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+    {% if cart %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-6">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left py-4 text-gray-600">Product</th>
+                            <th class="text-right py-4 text-gray-600">Price</th>
+                            <th class="text-right py-4 text-gray-600">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                        <tr class="border-b">
+                            <td class="py-4">
+                                <div class="flex items-center">
+                                    {% if loop.index == 1 %}
+                                    <i class="fas fa-coffee text-2xl text-brown-600 mr-3"></i>
+                                    {% elif loop.index == 2 %}
+                                    <i class="fas fa-leaf text-2xl text-green-600 mr-3"></i>
+                                    {% elif loop.index == 3 %}
+                                    <i class="fas fa-cookie text-2xl text-yellow-700 mr-3"></i>
+                                    {% elif loop.index == 4 %}
+                                    <i class="fas fa-cookie-bite text-2xl text-yellow-600 mr-3"></i>
+                                    {% else %}
+                                    <i class="fas fa-jar text-2xl text-amber-600 mr-3"></i>
+                                    {% endif %}
+                                    <div>
+                                        <div class="font-semibold text-gray-800">{{ item.name }}</div>
+                                        <div class="text-sm text-gray-600">{{ item.description }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-right font-semibold text-gray-800">${{ "%.2f"|format(item.price) }}</td>
+                            <td class="text-right">
+                                <a href="{{ url_for('remove_from_cart', index=loop.index0) }}" 
+                                   class="text-red-500 hover:text-red-700 transition-colors">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="font-bold text-lg">
+                            <td class="py-4">Total</td>
+                            <td class="text-right text-blue-600">${{ "%.2f"|format(total) }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-8 flex justify-between items-center">
+            <a href="/" class="text-blue-500 hover:text-blue-700 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>
                 Continue Shopping
             </a>
+            <button class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                Proceed to Checkout
+            </button>
         </div>
-    </div>
-{% else %}
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-gray-600">Your cart is empty.</p>
-        <div class="mt-6">
-            <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+    {% else %}
+        <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <i class="fas fa-shopping-cart text-gray-400 text-5xl mb-4"></i>
+            <p class="text-gray-600 text-xl mb-6">Your cart is empty</p>
+            <a href="/" class="inline-block bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors duration-300">
                 Start Shopping
             </a>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+</div>
 {% endblock %} 

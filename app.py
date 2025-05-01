@@ -9,11 +9,38 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-key-change-this")
 Session(app)
 
-# Sample product data (in a real app, this would come from a database)
+# Product catalog
 products = [
-    {"id": 1, "name": "Product 1", "price": 19.99, "description": "Description for Product 1"},
-    {"id": 2, "name": "Product 2", "price": 29.99, "description": "Description for Product 2"},
-    {"id": 3, "name": "Product 3", "price": 39.99, "description": "Description for Product 3"},
+    {
+        "id": 1,
+        "name": "Premium Coffee Beans",
+        "price": 24.99,
+        "description": "Freshly roasted Arabica coffee beans from Colombia, 1lb bag"
+    },
+    {
+        "id": 2,
+        "name": "Organic Green Tea",
+        "price": 18.99,
+        "description": "High-quality Japanese Sencha green tea, 50 tea bags"
+    },
+    {
+        "id": 3,
+        "name": "Artisan Chocolate Bar",
+        "price": 9.99,
+        "description": "72% dark chocolate bar made with single-origin cacao"
+    },
+    {
+        "id": 4,
+        "name": "Gourmet Cookie Set",
+        "price": 15.99,
+        "description": "Assorted handmade cookies, pack of 12"
+    },
+    {
+        "id": 5,
+        "name": "Natural Honey",
+        "price": 12.99,
+        "description": "Raw, unfiltered wildflower honey, 16oz jar"
+    }
 ]
 
 @app.route("/")
@@ -45,5 +72,5 @@ def remove_from_cart(index):
     return redirect(url_for("view_cart"))
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port) 
